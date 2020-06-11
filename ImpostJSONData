@@ -1,0 +1,15 @@
+import pandas as pd
+import urllib.request as request
+import json
+
+urllist = ['https://api.covid19india.org/raw_data1.json','https://api.covid19india.org/raw_data2.json','https://api.covid19india.org/raw_data3.json','https://api.covid19india.org/raw_data4.json','https://api.covid19india.org/raw_data5.json','https://api.covid19india.org/raw_data6.json']
+
+df1 = pd.DataFrame()
+for i in urllist:
+  with request.urlopen(i) as response:
+    source = response.read()
+    data = json.loads(source) 
+  new_list = data['raw_data']
+  df = pd.DataFrame(new_list)
+  df1=df1.append(df)
+list(df1.columns)
